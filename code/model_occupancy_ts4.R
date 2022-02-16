@@ -7,7 +7,7 @@ model {
   
   ## if all the slopes and intercept follow the same prior, you can write in this way
   ## if you call "beta" in R, it returns all beta's [1-4]
-  for(k in 1:9) {
+  for(k in 1:8) {
     beta[k] ~ dnorm(0, 0.1)
   }
   
@@ -17,14 +17,13 @@ model {
       Y[i] ~ dbern(theta[i])
       logit(theta[i]) <- 
         beta[1] + 
-        beta[2] * Agr[1] +
+        beta[2] * Agr[i] +
         beta[3] * Elv[i] +
         beta[4] * Area[i] +
         beta[5] * Urb[i] +
         beta[6] * Slop[i] +
         beta[7] * Temp[i] +
-        beta[8] * For[i] +
-        beta[9] * s[i]
+        beta[8] * s[i]
       
       # connectivity summed over j
       # subtract c[i,Segment_id[i]] from the sum; self-connection removal
